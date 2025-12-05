@@ -48,13 +48,25 @@ def main():
     texto = "\n".join(lineas)
     idioma = input("Ingrese el idioma (ejemplo: 'en', 'es'): ").strip()
     archivo_salida = input("Ingrese el nombre del archivo de salida (sin extensión): ").strip()
-    ejemplo = input(f"Ingrese el archivo de voz de ejemplo (Ejemplo: '{voces_disponibles[0]}'): ").strip()
+    entrada_voz = input(f"Ingrese el NÚMERO o el NOMBRE del archivo de voz (Ejemplo: '1' o '{voces_disponibles[0]}'): ").strip()
 
-    # Validar que el archivo de voz de ejemplo está en la lista de voces disponibles
-    if ejemplo not in voces_disponibles:
-        print(f"Error: El archivo de voz de ejemplo '{ejemplo}' no es válido.")
+    archivo_voz_seleccionado = None
+
+    # Verificamos si es un número (índice)
+    if entrada_voz.isdigit():
+        indice = int(entrada_voz) - 1 # Convertir a índice 0-based
+        if 0 <= indice < len(voces_disponibles):
+            archivo_voz_seleccionado = voces_disponibles[indice]
+    # Verificamos si es el nombre del archivo directamente
+    elif entrada_voz in voces_disponibles:
+        archivo_voz_seleccionado = entrada_voz
+
+    # Validar si se encontró una voz válida
+    if not archivo_voz_seleccionado:
+        print(f"Error: La selección '{entrada_voz}' no es válida (ni como número ni como archivo).")
         return
-
+    
+    print(f"--> Usando la voz: {archivo_voz_seleccionado}")
     # Cargar el modelo TTS
     tts = TTS("tts_models/multilingual/multi-dataset/xtts_v2", gpu=False)
 
@@ -65,7 +77,7 @@ def main():
     tts.tts_to_file(
         text=texto,
         file_path=archivo_salida_path,
-        speaker_wav=os.path.join(ejemplos_dir, ejemplo),
+        speaker_wav=os.path.join(ejemplos_dir, archivo_voz_seleccionado),
         language=idioma
     )
 
