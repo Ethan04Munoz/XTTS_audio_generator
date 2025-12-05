@@ -4,7 +4,7 @@ This project allows you to generate audio files using the XTTS-v2 model from Hug
 
 ## Requirements
 
-- Python 3.10
+- Python 3.10 (or superior)
 - Pip
 - A machine with an internet connection to download the TTS model
 
@@ -40,6 +40,11 @@ Before running the script, install the `TTS` package by running the following co
 
 ```bash
 pip install TTS
+```
+or 
+
+```bash
+pip install coqui-tts
 ```
 
 ### 5. Run the Script
