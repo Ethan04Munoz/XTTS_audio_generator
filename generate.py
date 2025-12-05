@@ -37,7 +37,15 @@ def main():
     print('\n')
     
     # Solicitar datos al usuario
-    texto = input("Ingrese el texto que quieres que diga (ejemplo: Hi, im sonic the hedgedog): ")
+    print("Ingrese el texto que quieres que diga. (E.G. 'Hi, Im sonic the hedgedog')") 
+    print("(Puedes copiar y pegar varias líneas. Presiona Enter en una línea vacía para terminar):")
+    lineas = []
+    while True:
+        linea = input()
+        if not linea:
+            break
+        lineas.append(linea)
+    texto = "\n".join(lineas)
     idioma = input("Ingrese el idioma (ejemplo: 'en', 'es'): ").strip()
     archivo_salida = input("Ingrese el nombre del archivo de salida (sin extensión): ").strip()
     ejemplo = input(f"Ingrese el archivo de voz de ejemplo (Ejemplo: '{voces_disponibles[0]}'): ").strip()
