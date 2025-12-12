@@ -1,5 +1,9 @@
 import os
 from TTS.api import TTS
+import warnings
+
+#Ignorar warnings de tourchaudio
+warnings.filterwarnings("ignore", category=UserWarning, module="torchaudio")
 
 # Función para listar las voces disponibles
 def listar_voces(ejemplos_dir):
@@ -78,7 +82,8 @@ def main():
         text=texto,
         file_path=archivo_salida_path,
         speaker_wav=os.path.join(ejemplos_dir, archivo_voz_seleccionado),
-        language=idioma
+        language=idioma,
+        split_sentences=True
     )
 
     print(f"Audio generado: {archivo_salida_path}")
